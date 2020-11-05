@@ -1,0 +1,30 @@
+mat-horizontal-stepper {
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+mat-chip {
+    max-width: 200px;
+}
+
+.confirm-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wide-screen {
+    background-image: 
+    url("../../../assets/workers/3.png"),
+    url("../../../assets/workers/1.png"),
+    url("../../../assets/workers/6.png"),
+    url("../../../assets/workers/2.png"),
+    linear-gradient(180deg, rgba(249,249,249,1) 0%, rgba(187,187,187,1) 94%, rgba(133,133,133,1) 98%, rgba(136,136,136,1) 100%)
+    ;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: 20%, 40%, 60%, 80%;
+    height: 93%;
+}
+
+mat-chip{
+    max-width: 60%;
+}

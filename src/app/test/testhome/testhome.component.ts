@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DevicesizeService } from 'src/app/services/devicesize.service';
 
 @Component({
   selector: 'app-testhome',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TesthomeComponent implements OnInit {
 
-  constructor() { }
+  isHandset$: any;
+
+  constructor(private dsService: DevicesizeService) { }
 
   ngOnInit(): void {
+    this.isHandset$ = this.dsService.isHandset$;
   }
 
 }

@@ -1,0 +1,47 @@
+.main-panel-center {
+    text-align: center;
+    padding-bottom: 5%;
+    padding-top: 1%;
+}
+
+.main-panel {
+    background-color: #e0e0e0;
+    background-image: url("../../../assets/furniturebg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.carousel-cell {
+    text-align: center;
+    padding: 2em;
+    background-color: transparent;
+}
+
+div.servicecard {
+    display: inline-block;
+    background-color: #fafafa;
+    transition: 0.4s;
+    width: 100%;
+    box-shadow: 0px 0px 25px -13px rgba(0, 0, 0, 0.9);
+}
+
+div.servicecard:hover {
+    transform: translate(0px, -10px);   
+}
+
+
+
+#location-select{
+    width: 300px;
+    background-color: white;
+    height: 65px;
+    font-size: large;
+    box-shadow: 0px 0px 33px -13px rgba(0, 0, 0, 0.9);
+}
+
+#service-select{
+    width: 300px;
+    background-color: white;
+    height: 65px;
+    font-size: large;
+    box-shadow: 0px 0px 33px -13px rgba(0, 0, 0, 0.9);
+}

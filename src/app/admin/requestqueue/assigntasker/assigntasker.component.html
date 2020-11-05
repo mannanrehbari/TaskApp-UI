@@ -1,0 +1,40 @@
+<span class="center-span" *ngIf="alreadyAssigned">
+    <h3>This is task is currently assigned to tasker with ID: {{serviceRequest.assignedTaskerId}}</h3>
+</span>
+
+<table class="table">
+    <caption>List of relevant taskers</caption>
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Tasker Email</th>
+
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tasker of taskerList">
+            <th scope="row">{{tasker.id}}</th>
+            <td>{{tasker.email}}</td>
+
+            <td>
+                <button mat-flat-button color="primary" (click)="assignTasker(tasker.id)" *ngIf="!alreadyAssigned && tasker.id != serviceRequest.assignedTaskerId">
+                    Assign
+                </button>
+                &nbsp;
+                <button mat-stroked-button color="warn" (click)="unassignTasker()" *ngIf="alreadyAssigned && tasker.id == serviceRequest.assignedTaskerId">
+                    Un-Assign</button>
+            </td>
+
+
+
+        </tr>
+    </tbody>
+</table>
+
+<span>
+    <button mat-flat-button color="primary" (click)="closeDialog()">
+        Close
+    </button>
+</span>

@@ -1,0 +1,85 @@
+<div class="main-panel">
+    <div class="container main-panel-center">
+        <div class="main-panel-center">
+
+            <br><br>
+            <h1 class="lead">Get your work done from home, the easy way!</h1>
+            <br><br>
+
+
+            <br>
+
+            <mat-form-field appearance="fill" id="location-select">
+                <mat-label>
+                    <mat-icon>navigation</mat-icon>
+                    Your city
+                </mat-label>
+                <mat-select [(ngModel)]="selectedLocation">
+                    <mat-option *ngFor="let loc of locations" [value]="loc">
+                        {{loc.city}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <br><br>
+
+            <mat-form-field appearance="fill" id="service-select">
+                <mat-label>
+                    <mat-icon>engineering</mat-icon> &nbsp;
+                    Your service type
+                </mat-label>
+                <mat-select [(ngModel)]="selectedService">
+                    <mat-option *ngFor="let serv of services" [value]="serv">
+                        {{serv.serviceType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br><br>
+            <button mat-raised-button color="primary" (click)="navigateToCreate()">
+                <span class="material-icons">
+                    forward
+                </span>
+                continue!
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div class="div" *ngIf="servicesLoaded">
+    <br>
+    <div class="container">
+
+
+        <!--Phone view-->
+        <carousel [cellsToShow]="3" *ngIf="isHandset" [margin]="1">
+            <div class="carousel-cell" *ngFor="let service of services" >
+                <br><br>
+                <ng-container>
+                    <div class="servicecard" (click)="scrollToTop(service)">
+                        <img src='../../../assets/icons/{{service.serviceType}}.png' id="service-icon">
+                        <br><br>
+                        {{service.serviceType}}
+                    </div>
+                </ng-container>
+            </div>
+        </carousel>
+        <carousel [height]="300" [cellsToShow]="5" *ngIf="!(isHandset)">
+            <div class="carousel-cell" *ngFor="let service of services" >
+                <br><br>
+                <ng-container>
+                    <div class="servicecard" (click)="scrollToTop(service)">
+                        <img src='../../../assets/icons/{{service.serviceType}}.png' id="service-icon">
+                        <br><br>
+                        {{service.serviceType}}
+                    </div>
+                </ng-container>
+            </div>
+        </carousel>
+
+    </div>
+
+</div>
+
+
+<br>
