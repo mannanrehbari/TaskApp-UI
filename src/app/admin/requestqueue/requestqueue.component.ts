@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { OpenapisService } from 'src/app/services/openapis.service';
 import { Servicerequest } from 'src/app/models/servicerequest';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,41 +9,58 @@ import { LocationService } from 'src/app/services/admin/location.service';
 import { Location } from 'src/app/models/location';
 import { RequestStatus } from 'src/app/enums/request-status.enum';
 import { RequestSearchCriteria } from 'src/app/models/request-search-criteria';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { SnackbarService } from 'src/app/services/app/snackbar.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-requestqueue',
   templateUrl: './requestqueue.component.html',
   styleUrls: ['./requestqueue.component.scss']
 })
-export class RequestqueueComponent implements OnInit {
+export class RequestqueueComponent implements OnInit, AfterViewInit {
 
-  constructor(
-    private openApis: OpenapisService,
-    private serviceTypeService: ServicetypeService,
-    private locationService: LocationService,
-    private matDlg: MatDialog
-  ) { }
-
-  allRequests: Servicerequest[];
+  dataSource: MatTableDataSource<Servicerequest>;
   displayedColumns: string[] = ['trackingId', 
   'First Name', 'Last Name',
   'serviceTypeId', 'Phone Number',
   'locationId', 'Status', 'Assigned Tasker',
   'Actions']
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  
+  allRequests: Servicerequest[];
   // filter to search requests
   locations: Location[]
   serviceTypes: ServiceType[]
+  requestStatuses : Array<string> = Object.keys(RequestStatus).filter(key => isNaN(+key));
+  
+  minDate: Date;
+  maxDate: Date;
   selectedLocation: Location = new Location();
   selectedService: ServiceType = new ServiceType();
-
-  requestStatuses : Array<string> = Object.keys(RequestStatus).filter(key => isNaN(+key));
   selectedStatus: string;
 
-  criteria : RequestSearchCriteria = new RequestSearchCriteria() ;
-  lastCriteria: RequestSearchCriteria = new RequestSearchCriteria();
+  criteria : RequestSearchCriteria ;
+  dataFetched: boolean;
+
+  constructor(
+    private openApis: OpenapisService,
+    private serviceTypeService: ServicetypeService,
+    private locationService: LocationService,
+    private matDlg: MatDialog,
+    private _snackBarSrvc: SnackbarService
+  ) {
+    this.dataSource = new MatTableDataSource();
+  }
 
   ngOnInit(): void {
+    this.criteria = new RequestSearchCriteria();
+    this.dataFetched = false;
     const servTypePromise = this.serviceTypeService.getServiceTypes();
     servTypePromise.then(
       (data) => {
@@ -57,6 +74,20 @@ export class RequestqueueComponent implements OnInit {
       }
     );  
   }
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   assignTasker(request: any){
     const dialogRef = this.matDlg.open(AssigntaskerComponent, {
@@ -68,42 +99,48 @@ export class RequestqueueComponent implements OnInit {
     });
   }
 
+  minDateChange(event: MatDatepickerInputEvent<Date>) {
+    this.minDate = event.value;
+  }
+  maxDateChange(event: MatDatepickerInputEvent<Date>) {
+    this.maxDate = event.value;
+  }
+
 
   fetchRequestsByCriteria(){
-    this.lastCriteria.serviceType = '';
-    this.lastCriteria.location = '';
-   
-    if( this.selectedLocation ){
-      this.criteria.locationId = this.selectedLocation.id
+    if(!this.validateSearchCriteria()) {
+      return;
     }
-    if( this.selectedService ) {
-      this.criteria.serviceTypeId = this.selectedService.id
-    }
-    if( this.selectedStatus ) {
-      this.criteria.requestStatus = this.selectedStatus
-    }
-
-    const promise = this.openApis.getRequestsByCriteria(this.criteria);
-    promise.then(
+    this.criteria.minDate = this.minDate;
+    this.criteria.maxDate = this.maxDate;
+    this.additionalValidation();
+    this.openApis.getRequestsByCriteria(this.criteria).then(
       (data) => {
-        
-        this.allRequests = data;
-        this.selectedLocation = new Location();
-        this.selectedService = new ServiceType();
-
-        this.selectedStatus = null;
-        this.lastCriteria = this.criteria;
-        if(this.criteria.locationId){
-          this.lastCriteria.location = this.locations.filter( element => element.id === this.criteria.locationId)[0].city;
-        }
-        if(this.criteria.serviceTypeId){
-          this.lastCriteria.serviceType = this.serviceTypes.filter(element => element.id === this.criteria.serviceTypeId)[0].serviceType;
-        }
+        this.dataFetched = true;
+        this.dataSource.data = data;
         this.criteria = new RequestSearchCriteria();
-        
-        this.ngOnInit();
       }
-    )
+    );
+  }
+
+  validateSearchCriteria(){
+    if(!this.maxDate || !this.minDate) {
+      this._snackBarSrvc.snackBar('Please select the dates');
+      return false;
+    } else {
+      return true;
+    }
+  }
+  additionalValidation(){
+    if(this.selectedService) {
+      this.criteria.serviceTypeId = this.selectedService.id;
+    }
+    if(this.selectedLocation) {
+      this.criteria.locationId = this.selectedLocation.id;
+    }
+    if(this.selectedStatus) {
+      this.criteria.requestStatus = this.selectedStatus;
+    }
   }
 
 }

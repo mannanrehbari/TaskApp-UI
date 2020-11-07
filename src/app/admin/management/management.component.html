@@ -1,0 +1,77 @@
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">
+            <mat-icon>engineering</mat-icon>
+            Taskers
+        </h1>
+
+        <hr class="my-4">
+        <p>Manage taskers: modify/update/delete </p>
+        <button mat-raised-button >
+            <mat-icon>
+                verified_user
+            </mat-icon>
+            View Approved Taskers
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" >
+            <mat-icon>
+                add
+            </mat-icon>
+            New Tasker
+        </button>
+    </div>
+
+    <!--Service Types-->
+    <div class="jumbotron">
+        <h1 class="display-4">
+            <mat-icon>category</mat-icon>
+            Service Types
+        </h1>
+        <p class="lead"></p>
+
+        <hr class="my-4">
+        <p>Add or modify available service types</p>
+        <button mat-raised-button (click)="adminView(serviceTypeStr)">
+            <mat-icon>
+                search
+            </mat-icon>
+            Available Service Types
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" (click)="adminAdd(serviceTypeStr)">
+            <mat-icon>
+                add
+            </mat-icon>
+            Add Service Type
+        </button>
+    </div>
+    
+    <!--Locations-->
+    <div class="jumbotron">
+        <h1 class="display-4">
+            <mat-icon>add_location_alt</mat-icon>
+            Locations
+        </h1>
+        <p class="lead"></p>
+
+        <hr class="my-4">
+        <p>Add or modify available locations for services </p>
+        <button mat-raised-button (click)="adminView(locationStr)">
+            <mat-icon>
+                search
+            </mat-icon>
+            Available Locations
+        </button>
+        &nbsp;
+        <button mat-raised-button color="primary" (click)="adminAdd(locationStr)">
+            <mat-icon>
+                add
+            </mat-icon>
+            Add Location
+        </button>
+    </div>
+
+
+</div>

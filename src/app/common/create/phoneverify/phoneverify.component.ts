@@ -10,6 +10,8 @@ import { SnackbarService } from 'src/app/services/app/snackbar.service';
 export class PhoneverifyComponent implements OnInit {
 
 
+  phoneNumber: string;
+
   constructor(
     public dlgRef: MatDialogRef<PhoneverifyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -17,6 +19,10 @@ export class PhoneverifyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+  }
+
+  validatePhoneNumber(){
 
   }
 

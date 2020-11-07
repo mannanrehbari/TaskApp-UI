@@ -2,13 +2,14 @@
     <h2>Enter your phone number below</h2>
     <br>
     <mat-form-field class="example-full-width">
-        <mat-label>Telephone</mat-label>
-        <span matPrefix>+1 &nbsp;</span>
-        <input type="tel" matInput placeholder="555-555-1234">
+        <mat-label>Cellphone number</mat-label>
+        <span matPrefix>+92 &nbsp;</span>
+        <input type="tel" matInput [(ngModel)]="phoneNumber" placeholder="321-4567123">
         <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
 
     <br>
+    
     <br>
     <h4>We will send you a confirmation SMS.</h4>
     <br>

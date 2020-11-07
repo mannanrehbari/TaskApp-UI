@@ -1,0 +1,54 @@
+<div class="container" *ngIf="srvcView">
+    <mat-form-field class="input-full-width">
+        <mat-label>Enter New Service Type</mat-label>
+        <input matInput placeholder="Ex. Carpenter" value="" [(ngModel)]="serviceTypeInput">
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <div>
+        <button mat-stroked-button color="accent" (click)="onCancel()">Cancel</button>
+        <span class="two-em-spacer"></span>
+        <button mat-stroked-button color="primary" (click)="saveServiceType()">Add</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="locationView">
+    <form [formGroup]="addLocForm">
+        <mat-form-field class="input-full-width">
+            <mat-label>New City</mat-label>
+            <input matInput formControlName="city" placeholder="Somecity"
+                [ngClass]="{ 'is-invalid': submitted && g.city.errors }">
+            <div *ngIf="submitted && g.city.errors" class="invalid-feedback">
+                <div *ngIf="g.city.errors.required">City is required</div>
+            </div>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input-full-width">
+            <mat-label>Province</mat-label>
+            <input matInput formControlName="province" placeholder="Someprovince"
+                [ngClass]="{ 'is-invalid': submitted && g.province.errors }">
+            <div *ngIf="submitted && g.province.errors" class="invalid-feedback">
+                <div *ngIf="g.province.errors.required">Province is required</div>
+            </div>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input-full-width">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" placeholder="Somecountry"
+                [ngClass]="{ 'is-invalid': submitted && g.country.errors }">
+            <div *ngIf="submitted && g.country.errors" class="invalid-feedback">
+                <div *ngIf="g.country.errors.required">Country is required</div>
+            </div>
+        </mat-form-field>
+        <br>
+        <button mat-stroked-button color="accent" (click)="onCancel()">Cancel</button>
+        <span class="two-em-spacer"></span>
+
+        <button mat-stroked-button color="primary" (click)="onSubmit()">Add location</button>
+
+
+    </form>
+
+</div>

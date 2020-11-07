@@ -11,16 +11,13 @@
         <span class="icon-spacer"></span>
         Request Queue
       </a>
-      <a mat-list-item routerLink="admin/queue" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
-        <mat-icon>pending_actions</mat-icon>
+      <br>
+      <a mat-list-item routerLink="admin/manage" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
+        <mat-icon>miscellaneous_services</mat-icon>
         <span class="icon-spacer"></span>
-        Request Queue
+        Management Console
       </a>
-      <a mat-list-item routerLink="admin/queue" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
-        <mat-icon>pending_actions</mat-icon>
-        <span class="icon-spacer"></span>
-        Request Queue
-      </a>
+      
       <div class="vertical-bottom">
         <mat-divider></mat-divider>
         <br>
@@ -82,6 +79,13 @@
           Request Queue
         </button>
       </a>
+      <a routerLink="admin/manage" *ngIf="!(isHandset$ | async)">
+        <button mat-button color="primary" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
+          <mat-icon>miscellaneous_services</mat-icon>
+          Management Console
+        </button>
+      </a>
+      &nbsp;&nbsp;
 
 
       <button mat-stroked-button *ngIf="loggedIn" [matMenuTriggerFor]="beforeMenu">

@@ -58,6 +58,10 @@ import { AssigntaskerComponent } from './admin/requestqueue/assigntasker/assignt
 import { HttpinterceptorService } from './services/auth/httpinterceptor.service';
 import { CreateComponent } from './common/create/create.component';
 import { PhoneverifyComponent } from './common/create/phoneverify/phoneverify.component';
+import { ManagementComponent } from './admin/management/management.component';
+import { AdminviewComponent } from './admin/management/adminview/adminview.component';
+import { AdminaddComponent } from './admin/management/adminadd/adminadd.component';
+
 
 @NgModule({
   declarations: [
@@ -69,7 +73,10 @@ import { PhoneverifyComponent } from './common/create/phoneverify/phoneverify.co
     RequestqueueComponent,
     AssigntaskerComponent,
     CreateComponent,
-    PhoneverifyComponent
+    PhoneverifyComponent,
+    ManagementComponent,
+    AdminviewComponent,
+    AdminaddComponent
   ],
   imports: [
     BrowserModule,

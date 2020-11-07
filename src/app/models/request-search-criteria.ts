@@ -5,6 +5,10 @@ export class RequestSearchCriteria {
 
 
     //strings for clarity
-    location: string;
     serviceType: string;
+
+    minDate: Date;
+    maxDate: Date;
+
+
 }

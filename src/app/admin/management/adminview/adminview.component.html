@@ -1,0 +1,42 @@
+<div class="container" *ngIf="srvcView">
+    <table class="table">
+        <caption>List of Service Types</caption>
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Service Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let st of serviceTypes">
+                <th scope="row">{{st.id}}</th>
+                <td>{{st.serviceType}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container" *ngIf="locationView">
+    <table class="table" >
+        <caption>List of Locations with Services Available</caption>
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">City</th>
+                <th scope="col">Province</th>
+                <th scope="col">Country</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let loc of locations">
+                <th scope="row">{{loc.id}}</th>
+                <td>{{loc.city}}</td>
+                <td>{{loc.province}}</td>
+                <td>{{loc.country}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
