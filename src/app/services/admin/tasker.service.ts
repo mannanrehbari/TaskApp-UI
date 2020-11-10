@@ -10,11 +10,7 @@ import { TaskerSignup } from 'src/app/models/tasker-signup';
 export class TaskerService {
 
   constructor(private http: HttpClient) { }
-  addTasker(authRequest: Authrequest){
-    return this.http.post<any>(
-      GlobalConstants.SERVER_V1_ADDRESS + 'tasker/add', authRequest 
-      ).toPromise();
-  }
+
 
   addTaskerV2(taskerSignup: TaskerSignup){
     return this.http.post<any>(
@@ -22,10 +18,12 @@ export class TaskerService {
     ).toPromise();
   }
 
-  allTaskers(){
-    return this.http.get<any>(
-      GlobalConstants.SERVER_V1_ADDRESS + 'tasker/all'
-    ).toPromise();
+  // use the following
+  addTaskerNew(uploadData: any){
+    return this.http.post(
+      GlobalConstants.SERVER_V1_ADDRESS + 'tasker/add-new', 
+      uploadData
+    );
   }
 
   taskersByType(serviceTypeId: number){
@@ -33,5 +31,14 @@ export class TaskerService {
       GlobalConstants.SERVER_V1_ADDRESS + 'tasker/type/' + serviceTypeId
     ).toPromise();
   }
+
+  // new apis
+  allTaskersNew(){
+    return this.http.get<any>(
+      GlobalConstants.SERVER_V1_ADDRESS + 'tasker/all-taskers'
+    ).toPromise();
+  }
+  
+
 
 }

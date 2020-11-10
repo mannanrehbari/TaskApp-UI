@@ -61,6 +61,10 @@ import { PhoneverifyComponent } from './common/create/phoneverify/phoneverify.co
 import { ManagementComponent } from './admin/management/management.component';
 import { AdminviewComponent } from './admin/management/adminview/adminview.component';
 import { AdminaddComponent } from './admin/management/adminadd/adminadd.component';
+import { TaskerpanelComponent } from './tasker/taskerpanel/taskerpanel.component';
+import { MarkcompleteComponent } from './tasker/taskerpanel/markcomplete/markcomplete.component';
+import { ManagetaskersComponent } from './admin/management/managetaskers/managetaskers.component';
+import { AddtaskerComponent } from './admin/management/managetaskers/addtasker/addtasker.component';
 
 
 @NgModule({
@@ -76,7 +80,11 @@ import { AdminaddComponent } from './admin/management/adminadd/adminadd.componen
     PhoneverifyComponent,
     ManagementComponent,
     AdminviewComponent,
-    AdminaddComponent
+    AdminaddComponent,
+    TaskerpanelComponent,
+    MarkcompleteComponent,
+    ManagetaskersComponent,
+    AddtaskerComponent
   ],
   imports: [
     BrowserModule,

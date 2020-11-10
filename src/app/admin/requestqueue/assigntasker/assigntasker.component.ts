@@ -29,29 +29,28 @@ export class AssigntaskerComponent implements OnInit {
 
   
   ngOnInit(): void {
+    
     this.serviceRequest = this.data.request
+    console.log(this.serviceRequest)
     if(this.serviceRequest.assignedTaskerId) {
       this.alreadyAssigned = true;
     } else{
       this.alreadyAssigned = false;
+      
     }
     const taskersOfType = this.taskerService.taskersByType(this.serviceRequest.serviceTypeId);
     taskersOfType.then(
       (data)=>{
         this.taskerList = data;
         this.taskersFetched = true;
+        console.log(this.taskerList)
       }
-    );
-    
+    );    
   }
 
   assignTasker(taskerId: number){
-    
-    
-    // set taskerId to serviceRequest
-    this.serviceRequest.assignedTaskerId = taskerId;
     // do api call
-    const promise = this.openApis.assignTasker(this.serviceRequest);
+    const promise = this.openApis.assignTasker(taskerId, this.serviceRequest);
     promise.then(
       (data) => {
         this.alreadyAssigned = true;
@@ -60,12 +59,12 @@ export class AssigntaskerComponent implements OnInit {
     );
   }
   unassignTasker(){
-    // do api call
-    
+    // do api call  
     const promise = this.openApis.unassignTasker(this.serviceRequest);
-    this.alreadyAssigned = false;
     promise.then(
       (data) => {
+        this.alreadyAssigned = false;
+        this.serviceRequest.assignedTaskerId = null;
         this.ngOnInit();
       }
     );

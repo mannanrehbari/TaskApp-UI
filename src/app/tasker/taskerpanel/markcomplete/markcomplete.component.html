@@ -1,0 +1,43 @@
+<mat-form-field appearance="fill">
+    <mat-label>Payment Method</mat-label>
+    <mat-select [(value)]="selectedMethod" name="method">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let method of paymentMethods" [value]="method">{{method}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+
+<mat-form-field>
+    <mat-label>Payment Amount</mat-label>
+    <input matInput placeholder="1500" value="2000" [(ngModel)]="paymentInformation.paymentAmount">
+</mat-form-field>
+&nbsp;
+
+<mat-form-field>
+    <mat-label>Payment Confirmation/Receipt No</mat-label>
+    <input matInput placeholder="confirmation number" value="" [(ngModel)]="paymentInformation.paymentConfirmationNo">
+</mat-form-field>
+<br>
+
+
+<br>
+<div class="container row">
+    Upload a receipt
+    <div class="col-md-6">
+        <input type="file" (change)="onFileChanged($event)">
+    </div>  
+</div>
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<button mat-raised-button color="primary" (click)="savePaymentInformation()">
+    Save
+</button>
+
+&nbsp;&nbsp;
+
+<button mat-raised-button (click)="closeDialog()">
+    Cancel
+</button>

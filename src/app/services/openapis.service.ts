@@ -26,7 +26,9 @@ export class OpenapisService {
     ).toPromise();
   }
 
-  assignTasker(serviceRequest: Servicerequest) {
+  assignTasker(taskerId: number, serviceRequest: Servicerequest) {
+    serviceRequest.assignedTaskerId = taskerId;
+    console.log(serviceRequest)
     return this.http.post<Servicerequest>(
       GlobalConstants.SERVER_V1_ADDRESS + 'request/assign', serviceRequest
     ).toPromise();

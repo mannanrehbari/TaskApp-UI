@@ -17,6 +17,17 @@
         <span class="icon-spacer"></span>
         Management Console
       </a>
+      <br>
+      <a mat-list-item routerLink="admin/taskers" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
+        <mat-icon>engineering</mat-icon>
+        <span class="icon-spacer"></span>
+        Taskers
+      </a>
+      <a mat-list-item routerLink="tasker/panel" *ngIf="loggedIn && userRole == 'ROLE_TASKER'">
+        <mat-icon>miscellaneous_services</mat-icon>
+        <span class="icon-spacer"></span>
+        Tasker Panel
+      </a>
       
       <div class="vertical-bottom">
         <mat-divider></mat-divider>
@@ -79,12 +90,29 @@
           Request Queue
         </button>
       </a>
+      &nbsp;
       <a routerLink="admin/manage" *ngIf="!(isHandset$ | async)">
         <button mat-button color="primary" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
           <mat-icon>miscellaneous_services</mat-icon>
           Management Console
         </button>
       </a>
+      &nbsp;
+      <a routerLink="admin/taskers" *ngIf="!(isHandset$ | async)">
+        <button mat-button color="primary" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
+          <mat-icon>engineering</mat-icon>
+          Taskers
+        </button>
+      </a>
+
+      <a routerLink="tasker/panel" *ngIf="!(isHandset$ | async)">
+        <button mat-button color="primary" *ngIf="loggedIn && userRole == 'ROLE_TASKER'">
+          <mat-icon>miscellaneous_services</mat-icon>
+          Tasker Panel
+        </button>
+      </a>
+
+
       &nbsp;&nbsp;
 
 

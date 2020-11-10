@@ -91,7 +91,6 @@ export class RequestqueueComponent implements OnInit, AfterViewInit {
 
   assignTasker(request: any){
     const dialogRef = this.matDlg.open(AssigntaskerComponent, {
-      width: "60%",
       data: {request}
     });
     dialogRef.afterClosed().subscribe(()=>{
@@ -118,6 +117,7 @@ export class RequestqueueComponent implements OnInit, AfterViewInit {
       (data) => {
         this.dataFetched = true;
         this.dataSource.data = data;
+        console.log(data)
         this.criteria = new RequestSearchCriteria();
       }
     );
