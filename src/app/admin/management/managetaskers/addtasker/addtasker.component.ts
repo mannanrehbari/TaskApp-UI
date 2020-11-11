@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ServiceType } from 'src/app/models/service-type';
+import { TaskerSignup } from 'src/app/models/tasker-signup';
+import { Taskerdetails } from 'src/app/models/taskerdetails';
 import { MustMatch } from 'src/app/registration/login/login.component';
 import { ServicetypeService } from 'src/app/services/admin/servicetype.service';
 import { TaskerService } from 'src/app/services/admin/tasker.service';
@@ -18,6 +20,9 @@ export class AddtaskerComponent implements OnInit {
   regSubmitted = false;
   serviceTypes: ServiceType[];
   selectedService: ServiceType
+  selectedFile: File;
+
+  taskerDetails: Taskerdetails;
 
   constructor(
     public dlgRef: MatDialogRef<AddtaskerComponent>,
@@ -29,6 +34,7 @@ export class AddtaskerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.taskerDetails = new Taskerdetails();
     this.selectedService = new ServiceType();
     const promise = this.srvcTypService.getServiceTypes();
     promise.then(
@@ -41,10 +47,18 @@ export class AddtaskerComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      phoneNo: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+      cnicNo: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       confirmPassword: ['', Validators.required]
     }, {
       validators: MustMatch('password', 'confirmPassword')
     });
+  }
+
+  onFileChanged(event){
+    this.selectedFile = event.target.files[0];
   }
 
   closeDlg(){
@@ -52,7 +66,44 @@ export class AddtaskerComponent implements OnInit {
   }
 
   registerTasker(){
-    console.log('clicked')
+    this.regSubmitted = true;
+    if(!this.registerForm.valid || !this.selectedService.id ){
+      this.snackBar.snackBar('Form is invalid');
+      return;
+    }
+
+    if(!this.selectedFile){
+      this.snackBar.snackBar('Kindly attach a CNIC copy');
+      return;
+    }
+    
+
+    const taskerSignUp: TaskerSignup = new TaskerSignup();
+    taskerSignUp.email = this.registerForm.get('email').value;
+    taskerSignUp.password = this.registerForm.get('password').value;
+    taskerSignUp.serviceTypeId = this.selectedService.id;
+
+    const taskerDetails: Taskerdetails = new Taskerdetails();
+    taskerDetails.cnicNo = this.registerForm.get('cnicNo').value;
+    taskerDetails.email = this.registerForm.get('email').value;
+    taskerDetails.firstName = this.registerForm.get('firstName').value;
+    taskerDetails.lastName = this.registerForm.get('lastName').value;
+    taskerDetails.phoneNo = this.registerForm.get('phoneNo').value;
+
+    const uploadData = new FormData();
+    uploadData.append('cnicImg', this.selectedFile);
+
+    uploadData.append('taskerRequest', JSON.stringify(taskerSignUp));
+    uploadData.append('taskerDetails', JSON.stringify(taskerDetails));
+
+    this.taskerService.addTaskerNew(uploadData).subscribe(
+      (data) => {
+        console.log(data)
+      }, (error) => {
+        console.log(error)
+      }
+    );
+    
   }
 
   get f() { return this.registerForm.controls; }

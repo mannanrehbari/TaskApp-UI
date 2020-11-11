@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GlobalConstants } from 'src/app/globalconstants/global-constants';
 import { Authrequest } from 'src/app/models/authrequest';
 import { TaskerSignup } from 'src/app/models/tasker-signup';
+import { Taskerdetails } from 'src/app/models/taskerdetails';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,10 @@ export class TaskerService {
 
   // new apis
   allTaskersNew(){
-    return this.http.get<any>(
+    return this.http.get<Taskerdetails[]>(
       GlobalConstants.SERVER_V1_ADDRESS + 'tasker/all-taskers'
     ).toPromise();
   }
   
-
 
 }
