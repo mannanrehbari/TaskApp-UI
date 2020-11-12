@@ -1,19 +1,15 @@
 <div class="container">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Service Type</mat-label>
+        <mat-select [(ngModel)]="selectedService" name="srvcTyp">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let srvcTyp of serviceTypes" [value]="srvcTyp">{{srvcTyp.serviceType}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <form [formGroup]="registerForm" (ngSubmit)="registerTasker()" class="tasker-reg-form">
-
-
-
-
-
-        <mat-form-field appearance="fill">
-            <mat-label>Service Type</mat-label>
-            <mat-select [(value)]="selectedService" name="srvcTyp">
-                <mat-option>None</mat-option>
-                <mat-option *ngFor="let srvcTyp of serviceTypes" [value]="srvcTyp">{{srvcTyp.serviceType}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
         <div class="same-line">
             <div class="form-group">
                 <label>First Name</label>
@@ -64,11 +60,11 @@
             </div>
         </div>
 
-        
+
         <div class="form-group">
             <label>Phone Number [11-digits][no dashes] </label>
             <input type="text" formControlName="phoneNo" class="form-control"
-                [ngClass]="{ 'is-invalid': regSubmitted && f.phoneNo.errors }" placeholder="12345678901"/>
+                [ngClass]="{ 'is-invalid': regSubmitted && f.phoneNo.errors }" placeholder="12345678901" />
             <div *ngIf="regSubmitted && f.phoneNo.errors" class="invalid-feedback">
                 <div *ngIf="f.phoneNo.errors.required">Phone is required</div>
             </div>
@@ -76,7 +72,7 @@
         <div class="form-group">
             <label>CNIC Number [13-digits][no dashes]</label>
             <input type="text" formControlName="cnicNo" class="form-control"
-                [ngClass]="{ 'is-invalid': regSubmitted && f.cnicNo.errors }" placeholder="1234567890123"/>
+                [ngClass]="{ 'is-invalid': regSubmitted && f.cnicNo.errors }" placeholder="1234567890123" />
             <div *ngIf="regSubmitted && f.cnicNo.errors" class="invalid-feedback">
                 <div *ngIf="f.cnicNo.errors.required">CNIC Number is required</div>
             </div>

@@ -19,7 +19,7 @@ export class AddtaskerComponent implements OnInit {
   registerForm: FormGroup;
   regSubmitted = false;
   serviceTypes: ServiceType[];
-  selectedService: ServiceType
+  selectedService: ServiceType = new ServiceType();
   selectedFile: File;
 
   taskerDetails: Taskerdetails;
@@ -35,7 +35,6 @@ export class AddtaskerComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskerDetails = new Taskerdetails();
-    this.selectedService = new ServiceType();
     const promise = this.srvcTypService.getServiceTypes();
     promise.then(
       (data) => {
@@ -77,6 +76,7 @@ export class AddtaskerComponent implements OnInit {
       return;
     }
     
+    console.log(this.selectedService);
 
     const taskerSignUp: TaskerSignup = new TaskerSignup();
     taskerSignUp.email = this.registerForm.get('email').value;
@@ -86,6 +86,7 @@ export class AddtaskerComponent implements OnInit {
     const taskerDetails: Taskerdetails = new Taskerdetails();
     taskerDetails.cnicNo = this.registerForm.get('cnicNo').value;
     taskerDetails.email = this.registerForm.get('email').value;
+    taskerDetails.serviceTypeId = this.selectedService.id;
     taskerDetails.firstName = this.registerForm.get('firstName').value;
     taskerDetails.lastName = this.registerForm.get('lastName').value;
     taskerDetails.phoneNo = this.registerForm.get('phoneNo').value;
@@ -99,6 +100,7 @@ export class AddtaskerComponent implements OnInit {
     this.taskerService.addTaskerNew(uploadData).subscribe(
       (data) => {
         console.log(data)
+        this.dlgRef.close();
       }, (error) => {
         console.log(error)
       }

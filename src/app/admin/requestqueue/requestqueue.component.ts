@@ -74,6 +74,7 @@ export class RequestqueueComponent implements OnInit, AfterViewInit {
       }
     );  
   }
+  
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

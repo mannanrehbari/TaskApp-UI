@@ -12,4 +12,7 @@ export class Taskerdetails {
     serviceTypeId: any;
     userId: any;
 
+    //transient
+    serviceType: string;
+
 }
