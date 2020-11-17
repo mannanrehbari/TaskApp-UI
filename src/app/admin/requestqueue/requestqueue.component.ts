@@ -82,7 +82,6 @@ export class RequestqueueComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -118,7 +117,6 @@ export class RequestqueueComponent implements OnInit, AfterViewInit {
       (data) => {
         this.dataFetched = true;
         this.dataSource.data = data;
-        console.log(data)
         this.criteria = new RequestSearchCriteria();
       }
     );

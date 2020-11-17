@@ -27,29 +27,28 @@ export class AssigntaskerComponent implements OnInit {
   taskersFetched: Boolean = false;
   alreadyAssigned: Boolean;
 
-  
+
   ngOnInit(): void {
-    
+
     this.serviceRequest = this.data.request
-    console.log(this.serviceRequest)
-    if(this.serviceRequest.assignedTaskerId) {
+    if (this.serviceRequest.assignedTaskerId) {
       this.alreadyAssigned = true;
-    } else{
+    } else {
       this.alreadyAssigned = false;
-      
+
     }
     const taskersOfType = this.taskerService.taskersByType(this.serviceRequest.serviceTypeId);
     taskersOfType.then(
-      (data)=>{
+      (data) => {
         this.taskerList = data;
         this.taskersFetched = true;
-        console.log(this.taskerList)
       }
-    );    
+    );
   }
 
-  assignTasker(taskerId: number){
+  assignTasker(taskerId: number) {
     // do api call
+    
     const promise = this.openApis.assignTasker(taskerId, this.serviceRequest);
     promise.then(
       (data) => {
@@ -58,7 +57,7 @@ export class AssigntaskerComponent implements OnInit {
       }
     );
   }
-  unassignTasker(){
+  unassignTasker() {
     // do api call  
     const promise = this.openApis.unassignTasker(this.serviceRequest);
     promise.then(
@@ -69,10 +68,7 @@ export class AssigntaskerComponent implements OnInit {
       }
     );
   }
-
-
-
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 

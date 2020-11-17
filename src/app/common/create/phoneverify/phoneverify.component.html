@@ -1,10 +1,10 @@
-<div class="center-div-elements" >
+<div class="center-div-elements" *ngIf="!codeSent">
     <h2>Enter your phone number below</h2>
     <br>
     <mat-form-field class="example-full-width">
         <mat-label>Cellphone number</mat-label>
-        <span matPrefix>+92 &nbsp;</span>
-        <input type="tel" matInput [(ngModel)]="phoneNumber" placeholder="321-4567123">
+        <mat-icon matPrefix>phone_iphone</mat-icon>
+        <input type="tel" matInput [(ngModel)]="phoneNumber" placeholder="03456789012">
         <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
 
@@ -15,8 +15,29 @@
     <br>
 
     <button mat-raised-button (click)="cancelPhoneVer()"> Cancel </button> &nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-raised-button color="primary"> Send code </button>
+    <button mat-raised-button color="primary" (click)="validatePhoneNumber()"> Send code </button>
+    <br>
+</div>
+
+<div class="center-div-elements" *ngIf="codeSent">
+    <h2>Enter the code you received below</h2>
+    <h3>It expires in 3 minutes</h3>
+    <br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Verification code</mat-label>
+        <mat-icon matPrefix>textsms</mat-icon> 
+        <input type="tel" matInput [(ngModel)]="trackingIdInput" placeholder="aaBc12">
+        <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+
+    <br>
+    
+    <br>
+    <h4>Make sure the above code is correct</h4>
     <br>
 
+    <button mat-raised-button (click)="cancelPhoneVer()"> Cancel </button> &nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="verifyTrackingCode()"> Verify code </button>
+    <br>
 </div>
 

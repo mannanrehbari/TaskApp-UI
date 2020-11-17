@@ -45,7 +45,6 @@ export class AdminviewComponent implements OnInit {
       (data) => {
         this.locations = data;
         this.locationView = true;
-        console.log(this.locations)
       }, () => {}
     );
   }
@@ -56,7 +55,6 @@ export class AdminviewComponent implements OnInit {
       (data) => {
         this.serviceTypes = data;
         this.srvcView = true;
-        console.log(this.serviceTypes)
       }, () => {}
     );
   }

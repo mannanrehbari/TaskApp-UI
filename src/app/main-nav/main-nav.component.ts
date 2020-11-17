@@ -61,5 +61,8 @@ export class MainNavComponent implements OnInit{
     })
   }
   
+  trackingComp(){
+    this.router.navigate(['/track']);
+  }
 
 }

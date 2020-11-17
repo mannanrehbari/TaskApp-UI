@@ -12,8 +12,8 @@
                 </p>
             </mat-card-content>
             <mat-card-actions >
-                <button mat-raised-button color="accent" *ngIf="alreadyAssigned && tasker.id == serviceRequest.assignedTaskerId" (click)="unassignTasker()">Un-Assign</button>
-                <button mat-raised-button color="primary" *ngIf="!alreadyAssigned" (click)="assignTasker(tasker.id)"> Assign </button>
+                <button mat-raised-button color="accent" *ngIf="alreadyAssigned && tasker.userId == serviceRequest.assignedTaskerId" (click)="unassignTasker()">Un-Assign</button>
+                <button mat-raised-button color="primary" *ngIf="!alreadyAssigned" (click)="assignTasker(tasker.userId)"> Assign </button>
             </mat-card-actions>
         </mat-card>
         &nbsp;

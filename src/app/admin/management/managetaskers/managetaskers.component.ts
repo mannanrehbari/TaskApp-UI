@@ -58,7 +58,6 @@ export class ManagetaskersComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -92,7 +91,6 @@ export class ManagetaskersComponent implements OnInit, AfterViewInit {
     taskers.forEach((tasker) => {
       tasker.serviceType = this.serviceTypes[tasker.serviceTypeId - 1].serviceType;      
     });
-    console.log(taskers)
   }
 
 

@@ -1,0 +1,78 @@
+<br><br>
+<div class="container center-div-elements">
+    <div>
+        Enter your tracking id below
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Tracking Id</mat-label>
+            <input matInput placeholder="1a2b3c" [(ngModel)]="trackingId" [value]="trackingId">
+        </mat-form-field>
+        &nbsp;
+        <button mat-raised-button color="primary" (click)="loadRequest(trackingId)">Track</button>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+
+
+    <div *ngIf="dataFetched">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">{{request.requestStatus}}</h1>
+                <p class="lead" *ngIf="request.requestStatus=='COMPLETED'">Your request has been marked as completed.
+                </p>
+                <p class="lead" *ngIf="request.requestStatus=='STARTED'"> We have received your request and will be
+                    assigned to a tasker soon.</p>
+                <p class="lead" *ngIf="request.requestStatus=='IN_PROGRESS'"> We have assigned your task. Our tasker will be in contact shortly.</p>
+            </div>
+        </div>
+        <br>
+
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Details
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        View your request details
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">Request field</th>
+                            <th scope="col">Your information</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr> 
+                            <td>Requestor's name</td>
+                            <td>{{request.firstName}} {{request.lastName}}</td>
+                          </tr>
+                          <tr> 
+                            <td>Address of request</td>
+                            <td>{{request.address}}</td>
+                          </tr>
+                          <tr> 
+                            <td>Request date</td>
+                            <td>{{request.requestDate}}</td>
+                          </tr>
+                          <tr> 
+                            <td>Details of task</td>
+                            <td>{{request.details}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+
+
+
+    </div>
+
+</div>

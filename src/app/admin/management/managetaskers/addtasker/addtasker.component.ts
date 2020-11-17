@@ -39,7 +39,6 @@ export class AddtaskerComponent implements OnInit {
     promise.then(
       (data) => {
         this.serviceTypes = data;
-        console.log(this.serviceTypes)
       }
     );
 
@@ -75,8 +74,6 @@ export class AddtaskerComponent implements OnInit {
       this.snackBar.snackBar('Kindly attach a CNIC copy');
       return;
     }
-    
-    console.log(this.selectedService);
 
     const taskerSignUp: TaskerSignup = new TaskerSignup();
     taskerSignUp.email = this.registerForm.get('email').value;
@@ -99,10 +96,10 @@ export class AddtaskerComponent implements OnInit {
 
     this.taskerService.addTaskerNew(uploadData).subscribe(
       (data) => {
-        console.log(data)
+        this.snackBar.snackBar('Tasker added!');
         this.dlgRef.close();
       }, (error) => {
-        console.log(error)
+        this.snackBar.snackBar('Error');
       }
     );
     

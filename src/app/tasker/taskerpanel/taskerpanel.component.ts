@@ -71,10 +71,7 @@ export class TaskerpanelComponent implements OnInit, AfterViewInit {
     promise.then(
       (data) => {
         this.allRequests = data;
-        this.splitRequestsByStatus(this.allRequests);
-        console.log(this.assignedRequests);
-        console.log(this.acceptedRequests);
-        console.log(this.completedRequests);
+        this.splitRequestsByStatus(this.allRequests);;
         this.dataLoaded = true;
       }
     );
@@ -111,11 +108,10 @@ export class TaskerpanelComponent implements OnInit, AfterViewInit {
   }
 
   acceptServiceRequest(request: Servicerequest){
-    console.log(request)
     const promise = this.openApis.acceptTaskerRequest(request);
     promise.then(
       (data) => {
-        console.log(data); 
+        this.snackBarService.snackBar('Task accepted!')
       }
     ).finally(
       () => {
@@ -128,7 +124,7 @@ export class TaskerpanelComponent implements OnInit, AfterViewInit {
     const promise = this.openApis.cancelTaskerRequest(request);
     promise.then(
       (data) => {
-        console.log(data)
+        this.snackBarService.snackBar('Task cancelled')
       }
     ).finally(
       () => {
@@ -138,14 +134,6 @@ export class TaskerpanelComponent implements OnInit, AfterViewInit {
   }
 
   markComplete (request: Servicerequest) {
-    // const promise = this.openApis.completeRequest(request);
-    // promise.then(
-    //   (data) => {
-    //     console.log(data);
-    //     this.ngOnInit();
-    //   }
-    // );
-
     const dlgRef = this.matDlg.open(MarkcompleteComponent, {
       width: '60%',
       data: {request},

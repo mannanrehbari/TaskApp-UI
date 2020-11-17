@@ -65,6 +65,7 @@ import { TaskerpanelComponent } from './tasker/taskerpanel/taskerpanel.component
 import { MarkcompleteComponent } from './tasker/taskerpanel/markcomplete/markcomplete.component';
 import { ManagetaskersComponent } from './admin/management/managetaskers/managetaskers.component';
 import { AddtaskerComponent } from './admin/management/managetaskers/addtasker/addtasker.component';
+import { TrackComponent } from './common/track/track.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { AddtaskerComponent } from './admin/management/managetaskers/addtasker/a
     TaskerpanelComponent,
     MarkcompleteComponent,
     ManagetaskersComponent,
-    AddtaskerComponent
+    AddtaskerComponent,
+    TrackComponent
   ],
   imports: [
     BrowserModule,

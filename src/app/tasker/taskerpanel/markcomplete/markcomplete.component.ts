@@ -35,7 +35,6 @@ export class MarkcompleteComponent implements OnInit {
   
   ngOnInit(): void {
     this.paymentInformation = new Paymentinformation();
-    console.log(this.data)
   }
 
   closeDialog(){
@@ -63,8 +62,7 @@ export class MarkcompleteComponent implements OnInit {
 
     this.paymentInformation.reqTrackingId = this.data.request.trackingId;
     this.paymentInformation.taskerId = this.data.request.assignedTaskerId;
-    
-    console.log(this.paymentInformation);
+
 
     const uploadData = new FormData();
     uploadData.append('requestReceipt', this.selectedFile);
@@ -74,18 +72,13 @@ export class MarkcompleteComponent implements OnInit {
     this.openApis.completeRequestPayment(uploadData).subscribe(
       (response) => {
         if (response.status === 200) {
-          console.log(response)
-          console.log('success uploading');
           this.dialogRef.close();
           this._snackBarSrvc.snackBar('Payment information successfully submitted! ');
         } else {
-          console.log('Not uploaded yet');
+          this._snackBarSrvc.snackBar('Not complete yet');
         }
       }
     );
-
-
-
   }
 
 

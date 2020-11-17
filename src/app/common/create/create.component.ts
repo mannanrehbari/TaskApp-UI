@@ -9,6 +9,7 @@ import { ServiceType } from 'src/app/models/service-type';
 import { Servicerequest } from 'src/app/models/servicerequest';
 import { FirstsearchService } from 'src/app/services/app/firstsearch.service';
 import { SnackbarService } from 'src/app/services/app/snackbar.service';
+import { TrackingService } from 'src/app/services/app/tracking.service';
 import { DevicesizeService } from 'src/app/services/devicesize.service';
 import { PhoneverifyComponent } from './phoneverify/phoneverify.component';
 
@@ -53,12 +54,14 @@ export class CreateComponent implements OnInit {
     private dsService: DevicesizeService,
     private firstSearchService: FirstsearchService,
     private timePicker: AmazingTimePickerService,
+    private trackingService: TrackingService,
     private router: Router,
     public phoneVerDlg: MatDialog,
     private _snackBarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
+    this.serviceRequest = new Servicerequest();
     this.dsService.isHandset$.subscribe(
       (data) => { this.isHandset = data }
     );
@@ -92,9 +95,11 @@ export class CreateComponent implements OnInit {
     if (this.firstName && this.lastName &&
       this.address && this.details &&
       this.requestDate && this.selectedLocation &&
+      this.requestTime &&
       this.selectedService
     ) {
       this.allFieldsValid = true;
+      this.populateRequestObject();
       this.openDialog();
     } else{
       this.allFieldsValid = false;
@@ -104,14 +109,29 @@ export class CreateComponent implements OnInit {
 
   openDialog(){
     const dlgRef = this.phoneVerDlg.open(PhoneverifyComponent, {
-      disableClose: true
+      disableClose: true,
+      data: this.serviceRequest
     });
 
     dlgRef.afterClosed().subscribe(
-      (data) => {
-        this._snackBarService.snackBar('dialogClosed');
+      (trackingId) => {
+        this.router.navigate(['/track', trackingId]);
+      }, (error) => {
+        this._snackBarService.snackBar(error);
       }
     );
+  }
+
+
+  populateRequestObject() {
+    this.serviceRequest.firstName = this.firstName;
+    this.serviceRequest.lastName = this.lastName;
+    this.serviceRequest.address = this.address;
+    this.serviceRequest.details = this.details;
+    this.serviceRequest.locationId = this.selectedLocation.id;
+    this.serviceRequest.serviceTypeId = this.selectedService.id;
+    this.serviceRequest.requestDate = this.requestDate;
+    
   }
 
 

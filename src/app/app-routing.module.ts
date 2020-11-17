@@ -5,6 +5,7 @@ import { ManagetaskersComponent } from './admin/management/managetaskers/managet
 import { RequestqueueComponent } from './admin/requestqueue/requestqueue.component';
 import { CreateComponent } from './common/create/create.component';
 import { HomeComponent } from './common/home/home.component';
+import { TrackComponent } from './common/track/track.component';
 import { AdminguardService } from './guards/adminguard.service';
 import { TaskerguardService } from './guards/taskerguard.service';
 import { LoginComponent } from './registration/login/login.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'create', component: CreateComponent},
+  { path: 'track/:trackingId', component: TrackComponent},
+  { path: 'track', component: TrackComponent},
+
+
   //admin
   { path: 'admin/queue', component: RequestqueueComponent, canActivate: [AdminguardService] },
   { path: 'admin/manage', component: ManagementComponent, canActivate: [AdminguardService] },
