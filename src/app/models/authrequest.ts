@@ -1,4 +1,7 @@
 export class Authrequest {
-    email: String;
-    password: String;
+    email: string;
+    password: string;
+
+    firstName: string;
+    lastName: string;
 }

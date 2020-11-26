@@ -26,7 +26,7 @@ export class CreateComponent implements OnInit {
 
   selectedLocation: Location;
   selectedService: ServiceType;
-  
+
   serviceRequest: Servicerequest;
 
   // pieces of request
@@ -46,9 +46,7 @@ export class CreateComponent implements OnInit {
 
   isEditable: boolean = true;
   allFieldsValid: boolean;
-
-
-
+  dateSelected: boolean;
 
   constructor(
     private dsService: DevicesizeService,
@@ -61,6 +59,9 @@ export class CreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.dateSelected = false;
+    this.minDate = new Date();
+    this.maxDate = this.getMaxDate();
     this.serviceRequest = new Servicerequest();
     this.dsService.isHandset$.subscribe(
       (data) => { this.isHandset = data }
@@ -68,7 +69,7 @@ export class CreateComponent implements OnInit {
     this.allFieldsValid = true;
     this.firstSearchService.data.subscribe(
       (data) => {
-        if(!data.location || !data.serviceType) {
+        if (!data.location || !data.serviceType) {
           this.router.navigate(['/']);
         }
         this.selectedLocation = data.location;
@@ -78,16 +79,42 @@ export class CreateComponent implements OnInit {
   }
 
   openTimePicker() {
+    if (!this.dateSelected) {
+      this._snackBarService.snackBar('Select a date first');
+      return;
+    }
     const requestTimePicker = this.timePicker.open();
     requestTimePicker.afterClose().subscribe(
-      requestedTime => {
-        this.requestTime = requestedTime;
+      (requestedTime) => {
+        var currDate = new Date();
+        if (this.requestDate.getDate() == currDate.getDate()) {
+          // check two hours from current time
+          if (currDate.getHours() == Number(requestedTime.substring(0, 2))
+            && currDate.getMinutes() <= Number(requestedTime.substring(3, 5))
+          ) {
+            this.requestTime = requestedTime;
+          } else {
+            this._snackBarService.snackBar('Choose a time in the future');
+          }
+        } else {
+          this.requestTime = requestedTime;
+        }
       }
     );
   }
 
   dateChange(event: MatDatepickerInputEvent<Date>) {
+    this.requestTime = '';
     this.requestDate = event.value;
+    this.dateSelected = true;
+  }
+
+  getMaxDate(): any {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth();
+    var day = currentDate.getDate() + 7;
+    return new Date(year, month, day);
   }
 
 
@@ -98,16 +125,17 @@ export class CreateComponent implements OnInit {
       this.requestTime &&
       this.selectedService
     ) {
+
       this.allFieldsValid = true;
       this.populateRequestObject();
       this.openDialog();
-    } else{
+    } else {
       this.allFieldsValid = false;
       this._snackBarService.snackBar('Invalid information');
     }
   }
 
-  openDialog(){
+  openDialog() {
     const dlgRef = this.phoneVerDlg.open(PhoneverifyComponent, {
       disableClose: true,
       data: this.serviceRequest
@@ -131,7 +159,7 @@ export class CreateComponent implements OnInit {
     this.serviceRequest.locationId = this.selectedLocation.id;
     this.serviceRequest.serviceTypeId = this.selectedService.id;
     this.serviceRequest.requestDate = this.requestDate;
-    
+
   }
 
 

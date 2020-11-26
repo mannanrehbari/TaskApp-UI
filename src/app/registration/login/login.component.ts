@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Authrequest } from 'src/app/models/authrequest';
+import { SnackbarService } from 'src/app/services/app/snackbar.service';
 import { AuthdataService } from 'src/app/services/auth/authdata.service';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RegisterService } from 'src/app/services/auth/register.service';
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private authData: AuthdataService
+    private authData: AuthdataService,
+    private snakeBar: SnackbarService
   ) {
     this.loginService.loggedInEvent.subscribe(
       () => {
@@ -47,7 +49,9 @@ export class LoginComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
     }, {
       validators: MustMatch('password', 'confirmPassword')
     });
@@ -64,33 +68,35 @@ export class LoginComponent implements OnInit {
     const authrequest: Authrequest = new Authrequest;
     authrequest.email = this.registerForm.get('email').value;
     authrequest.password = this.registerForm.get('password').value;
-    if (this.registerForm.invalid || authrequest.email == '' || authrequest.password == '') {
-      this._snackBar.open('Invalid Data', 'Try again!', {
-        duration: 3000,
-      });
+    authrequest.firstName = this.registerForm.get('firstName').value;
+    authrequest.lastName = this.registerForm.get('lastName').value;
+    if (this.registerForm.invalid 
+      || authrequest.email == '' 
+      || authrequest.password == ''
+      || authrequest.firstName == ''
+      || authrequest.lastName == '') {
+      this.snakeBar.snackBar('Invalid Data, try again')
       return;
     }
 
     const promise = this.registerService.registerUser(authrequest);
     promise.then(
       (data) => {
-        this._snackBar.open(data.message, 'Close', {
-          duration: 3000,
-        });
-        this.registerForm.reset();
+        this.snakeBar.snackBar(data.message)
+        
         Object.keys(this.registerForm.controls).forEach((key) => {
           this.registerForm.get(key).setErrors(null);
         });
         tabGroup.selectedIndex = 0;
+        this.loginForm.setValue({email: authrequest.email, password: authrequest.password});
+        this.submitLogin();
+        this.registerForm.reset();
       },
       (error) => {
-        this._snackBar.open(error.error.message, 'Close', {
-          duration: 3000,
-        });
+        this.snakeBar.snackBar(error.error.message);
       }
     );
     this.loginSubmitted = false;
-
   }
 
   submitLogin() {
@@ -99,9 +105,7 @@ export class LoginComponent implements OnInit {
     authrequest.password = this.loginForm.get('password').value;
     this.loginSubmitted = true;
     if (this.loginForm.invalid || authrequest.password == '' || authrequest.email == '') {
-      this._snackBar.open('Invalid Data', 'Try again!', {
-        duration: 3000,
-      });
+      this.snakeBar.snackBar('Invalid Data')
       return;
     }
     const promise = this.loginService.loginUser(authrequest);
@@ -131,15 +135,11 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['/']);
         this.loggedInEvent.emit();
-        this._snackBar.open('Logged in', 'Close', {
-          duration: 3000
-        });
+        this.snakeBar.snackBar('Logged in');
 
       },
       (error) => {
-        this._snackBar.open( error.error.Denied , 'Dismiss',{
-          duration: 3000
-        })
+        this.snakeBar.snackBar(error.error.Denied)
       }
     );
 

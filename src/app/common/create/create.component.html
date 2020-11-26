@@ -27,9 +27,9 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           &nbsp;
-          <mat-form-field appearance="fill" (click)="openTimePicker()">
+          <mat-form-field appearance="fill" (click)="openTimePicker()" >
             <mat-label>Service Time (24hr)</mat-label>
-            <input matInput [(ngModel)]="requestTime" autocomplete="off" required>
+            <input matInput [(ngModel)]="requestTime" autocomplete="off" required [disabled]="!dateSelected" >
           </mat-form-field>
           <br>
             <h4>Please make sure the time selected is correct. 13:00 means 1:00 PM</h4>
