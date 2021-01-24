@@ -3,7 +3,7 @@
     <br>
     <mat-form-field class="example-full-width">
         <mat-label>Cellphone number</mat-label>
-        <mat-icon matPrefix>phone_iphone</mat-icon>
+        <mat-icon matPrefix>phone_iphone</mat-icon> 
         <input type="tel" matInput [(ngModel)]="phoneNumber" placeholder="03456789012">
         <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
@@ -25,8 +25,8 @@
     <br>
     <mat-form-field class="example-full-width">
         <mat-label>Verification code</mat-label>
-        <mat-icon matPrefix>textsms</mat-icon> 
-        <input type="tel" matInput [(ngModel)]="trackingIdInput" placeholder="aaBc12">
+        <mat-icon matPrefix>textsms</mat-icon>
+        <input type="tel" matInput [(ngModel)]="trackingIdInput" placeholder="112233">
         <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
 
@@ -34,6 +34,7 @@
     
     <br>
     <h4>Make sure the above code is correct</h4>
+    <h4>If cancelled, you will be able to create a request again after 5 minutes</h4>
     <br>
 
     <button mat-raised-button (click)="cancelPhoneVer()"> Cancel </button> &nbsp;&nbsp;&nbsp;&nbsp;

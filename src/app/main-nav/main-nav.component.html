@@ -6,6 +6,14 @@
     <br><br>
     <mat-nav-list>
 
+      <br><br>
+      <a mat-list-item (click)="trackingComp()">
+        <mat-icon>pending_actions</mat-icon>
+        <span class="icon-spacer"></span>
+        Track Request
+      </a>
+      <br>
+
       <a mat-list-item routerLink="admin/queue" *ngIf="loggedIn && userRole == 'ROLE_ADMIN'">
         <mat-icon>pending_actions</mat-icon>
         <span class="icon-spacer"></span>
@@ -28,7 +36,7 @@
         <span class="icon-spacer"></span>
         Tasker Panel
       </a>
-      
+
       <div class="vertical-bottom">
         <mat-divider></mat-divider>
         <br>
@@ -168,4 +176,5 @@
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

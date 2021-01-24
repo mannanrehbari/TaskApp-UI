@@ -47,6 +47,7 @@ export class CreateComponent implements OnInit {
   isEditable: boolean = true;
   allFieldsValid: boolean;
   dateSelected: boolean;
+  isLinear = true;
 
   constructor(
     private dsService: DevicesizeService,
@@ -86,19 +87,8 @@ export class CreateComponent implements OnInit {
     const requestTimePicker = this.timePicker.open();
     requestTimePicker.afterClose().subscribe(
       (requestedTime) => {
-        var currDate = new Date();
-        if (this.requestDate.getDate() == currDate.getDate()) {
-          // check two hours from current time
-          if (currDate.getHours() == Number(requestedTime.substring(0, 2))
-            && currDate.getMinutes() <= Number(requestedTime.substring(3, 5))
-          ) {
-            this.requestTime = requestedTime;
-          } else {
-            this._snackBarService.snackBar('Choose a time in the future');
-          }
-        } else {
-          this.requestTime = requestedTime;
-        }
+        this.requestTime = requestedTime;
+      }, (error) => {
       }
     );
   }
@@ -142,8 +132,10 @@ export class CreateComponent implements OnInit {
     });
 
     dlgRef.afterClosed().subscribe(
-      (trackingId) => {
-        this.router.navigate(['/track', trackingId]);
+      (data) => {
+        if(data.trackingId != "") {
+          this.router.navigate(['/track', data.trackingId]);
+        }
       }, (error) => {
         this._snackBarService.snackBar(error);
       }

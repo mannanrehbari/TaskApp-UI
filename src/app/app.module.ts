@@ -66,6 +66,10 @@ import { MarkcompleteComponent } from './tasker/taskerpanel/markcomplete/markcom
 import { ManagetaskersComponent } from './admin/management/managetaskers/managetaskers.component';
 import { AddtaskerComponent } from './admin/management/managetaskers/addtasker/addtasker.component';
 import { TrackComponent } from './common/track/track.component';
+import { PrivacyComponent } from './common/bottom/privacy/privacy.component';
+import { TermsComponent } from './common/bottom/terms/terms.component';
+import { AboutComponent } from './common/bottom/about/about.component';
+import { FooterComponent } from './common/bottom/footer/footer.component';
 
 
 @NgModule({
@@ -86,7 +90,11 @@ import { TrackComponent } from './common/track/track.component';
     MarkcompleteComponent,
     ManagetaskersComponent,
     AddtaskerComponent,
-    TrackComponent
+    TrackComponent,
+    PrivacyComponent,
+    TermsComponent,
+    AboutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

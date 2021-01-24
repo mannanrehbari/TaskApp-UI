@@ -46,14 +46,14 @@
     </div>
 </div>
 
-<div class="div" *ngIf="servicesLoaded">
+<div *ngIf="servicesLoaded">
     <br>
     <div class="container">
 
 
         <!--Phone view-->
         <carousel [cellsToShow]="3" *ngIf="isHandset" [margin]="1">
-            <div class="carousel-cell" *ngFor="let service of services" >
+            <div class="carousel-cell" *ngFor="let service of services">
                 <br><br>
                 <ng-container>
                     <div class="servicecard" (click)="scrollToTop(service)">
@@ -65,7 +65,7 @@
             </div>
         </carousel>
         <carousel [height]="300" [cellsToShow]="5" *ngIf="!(isHandset)">
-            <div class="carousel-cell" *ngFor="let service of services" >
+            <div class="carousel-cell" *ngFor="let service of services">
                 <br><br>
                 <ng-container>
                     <div class="servicecard" (click)="scrollToTop(service)">
@@ -82,4 +82,97 @@
 </div>
 
 
+<div class="dark-section">
+    <div class="container center-div-elements">
+        <br><br>
+        <h1 class="lead"> Exceptional service is promised and delivered, at your doorsteps! </h1>
+        <br><br>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <!-- two line list -->
+                <mat-list>
+                    <mat-list-item>
+                        <mat-card>
+
+                            <p matLine>
+                                <button mat-mini-fab color="primary">
+                                    <mat-icon>check</mat-icon>
+                                </button>&nbsp;
+                                <span> Trained, qualified, and vetted employees
+                                </span>
+                            </p>
+                        </mat-card>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-card>
+
+                            <p matLine>
+                                <button mat-mini-fab color="primary">
+                                    <mat-icon>check</mat-icon>
+                                </button>&nbsp;
+                                <span> Customers are our highest priority </span>
+                            </p>
+                        </mat-card>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-card>
+
+                            <p matLine>
+                                <button mat-mini-fab color="primary">
+                                    <mat-icon>check</mat-icon>
+                                </button>&nbsp;
+                                <span> We will always ensure your job gets done
+                                </span>
+                            </p>
+                        </mat-card>
+                    </mat-list-item>
+                </mat-list>
+
+            </div>
+            <div class="col-sm">
+                <img src="../../../assets/mechanic1.png" alt="">
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+</div>
 <br>
+
+<div class="container center-div-elements">
+
+    <br><br>
+
+    <h1>Customer feedback</h1>
+    <br>
+
+    <iframe
+        src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Frahimkhanabdul%2Fposts%2F3388838977840557&width=350&show_text=true&appId=682916145681786&height=194"
+        width="350" height="194" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+        allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+
+    <iframe
+        src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fhassan.a.shah%2Fposts%2F10216664724081089&width=350&show_text=true&appId=682916145681786&height=137"
+        width="350" height="194" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+        allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+
+    <iframe
+        src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D160554542321473%26id%3D100051007831406&width=350&show_text=true&appId=682916145681786&height=156"
+        width="350" height="194" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+        allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+</div>
+
+<br><br>
+<app-footer></app-footer>
