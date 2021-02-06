@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthdataService } from '../services/auth/authdata.service';
 import { LoginService } from '../services/auth/login.service';
+import { JwtHelperService } from '@auth0/angular-jwt'
 
 @Component({
   selector: 'app-main-nav',
@@ -27,11 +28,13 @@ export class MainNavComponent implements OnInit{
     public loginService: LoginService,
     private _snackBar: MatSnackBar,
     private router: Router, 
-    private authData: AuthdataService) {}
+    private authData: AuthdataService,
+    private jwtHelper: JwtHelperService
+    ) {}
   
   ngOnInit() {
     this.isHandset$ = this.deviceService.isHandset$;
-    if(localStorage.getItem('username')){
+    if(localStorage.getItem('username') && !this.jwtHelper.isTokenExpired(localStorage.getItem('token'))) {
       this.username = localStorage.getItem('username');
       this.loggedIn = true;
       this.userRole = localStorage.getItem('role');

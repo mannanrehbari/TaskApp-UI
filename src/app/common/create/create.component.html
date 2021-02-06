@@ -11,94 +11,100 @@
     <br><br>
 
     <div>
-      <mat-horizontal-stepper linear #stepper>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
-        <!-- Date and Time -->
-        <mat-step [editable]="isEditable" [completed]>
-          <br>
-          <h1>Let's get started. Please tell us when you need the service</h1>
-          <br>
-          <ng-template matStepLabel>Date and time</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Choose a date for service</mat-label>
-            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" (dateChange)="dateChange($event)"
-              required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          &nbsp;
-          <mat-form-field appearance="fill" (click)="openTimePicker()" >
-            <mat-label>Service Time (24hr)</mat-label>
-            <input matInput [(ngModel)]="requestTime" autocomplete="off" required [disabled]="!dateSelected" >
-          </mat-form-field>
-          <br>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <br>
+            <h1>Let's get started. Please tell us when you need the service</h1>
+            <br>
+            <ng-template matStepLabel>Date and time</ng-template>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date for service</mat-label>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="requestDate"
+                (dateChange)="dateChange($event)" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="fill" (click)="openTimePicker()">
+              <mat-label>Service Time (24hr)</mat-label>
+              <input matInput autocomplete="off" required formControlName="requestTime">
+            </mat-form-field>
+            <br>
             <h4>Please make sure the time selected is correct. 13:00 means 1:00 PM</h4>
-          <br>
-          <div style="float: right;">
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-          </div>
+            <br>
+            <div style="float: right;">
+              <button mat-raised-button matStepperNext color="primary">Next</button>
+            </div>
+          </form>
         </mat-step>
 
-        <!--Contact information-->
-        <mat-step [editable]="isEditable" >
-          <br>
-          <h1>Lets continue, please enter the following </h1>
-          <br>
-          <ng-template matStepLabel>Contact Details</ng-template>
-          <mat-form-field class="wider-input" appearance="fill">
-            <mat-label>First Name </mat-label>
-            <input matInput [(ngModel)]="firstName" required>
-          </mat-form-field>
-          <br>
-          <mat-form-field class="wider-input" appearance="fill">
-            <mat-label>Last Name </mat-label>
-            <input matInput [(ngModel)]="lastName" required>
-          </mat-form-field>
-          <br>
-          <mat-form-field class="wider-input" appearance="fill">
-            <mat-label>Service Request Street Address</mat-label>
-            <input matInput [(ngModel)]="address" required>
-          </mat-form-field>
-          <br>
-          <h4>Make sure your street address is correct. We will be sending the tasker to the address you mention here.</h4>
-          <br>
-          <div class="confirm-info">
-            <button mat-raised-button matStepperPrevious>Back</button> &nbsp;
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-          </div>
+        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+          <form [formGroup]="secondFormGroup">
+            <mat-form-field class="wider-input" appearance="fill">
+              <mat-label>First Name </mat-label>
+              <input matInput formControlName="firstName">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="wider-input" appearance="fill">
+              <mat-label>Last Name </mat-label>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="wider-input" appearance="fill">
+              <mat-label>Email Address </mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="wider-input" appearance="fill">
+              <mat-label>Service Request Street Address</mat-label>
+              <input matInput formControlName="address">
+            </mat-form-field>
+            <br>
+            <h4>Make sure your street address is correct. We will be sending the tasker to the address you mention here.
+            </h4>
+            <br>
+            <div class="confirm-info">
+              <button mat-raised-button matStepperPrevious>Back</button> &nbsp;
+              <button mat-raised-button matStepperNext color="primary">Next</button>
+            </div>
+          </form>
         </mat-step>
 
-        <!--Issue description-->
-        <mat-step [editable]="isEditable">
-          <br>
-          <h1>Kindly describe your issue in a few words. Following are some examples.</h1>
-          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
-            
-            <button mat-button>
-              <mat-icon>arrow_right</mat-icon>
-              My AC is not cooling. The brand is Haier.
-            </button>
-            <button mat-button>
-              <mat-icon>arrow_right</mat-icon>
-              I am about to get engaged. I need the best photographer in town. 
-            </button>
-          </mat-chip-list>
-          <ng-template matStepLabel>Problem description</ng-template>
-          <br><br>
-          <mat-form-field class="wider-input" appearance="fill">
-            <mat-label>Service Request Details</mat-label>
-            <input matInput [(ngModel)]="details" required>
-          </mat-form-field>
+        <mat-step [stepControl]="thirdFormGroup" label="Describe your problem">
+          <form [formGroup]="thirdFormGroup">
+            <br>
+            <h1>Kindly describe your issue in a few words. Following are some examples.</h1>
+            <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
 
-          <br><br>
-          <div class="confirm-info">
-            <button mat-raised-button matStepperPrevious>Back</button> &nbsp;
-            <button mat-raised-button matStepperNext color="primary">Next</button>
-          </div>
+              <button mat-button>
+                <mat-icon>arrow_right</mat-icon>
+                My AC is not cooling. The brand is Haier.
+              </button>
+              <button mat-button>
+                <mat-icon>arrow_right</mat-icon>
+                I am about to get engaged. I need the best photographer in town.
+              </button>
+            </mat-chip-list>
+            <ng-template matStepLabel>Problem description</ng-template>
+            <br><br>
+            <mat-form-field class="wider-input" appearance="fill">
+              <mat-label>Service Request Details</mat-label>
+              <input matInput formControlName="details">
+            </mat-form-field>
+            <br><br><br>
+
+            <div class="confirm-info">
+              <button mat-raised-button matStepperPrevious>Back</button> &nbsp;
+              <button mat-raised-button matStepperNext color="primary">Next</button>
+            </div>
+          </form>
         </mat-step>
 
-        <!-- Confirmation -->
-        <mat-step disabled>
+
+
+        <mat-step>
           <ng-template matStepLabel>Verify</ng-template>
           <p *ngIf="allFieldsValid">You are almost done, please verify the following information is correct!.</p>
           <span *ngIf="!allFieldsValid">
@@ -123,28 +129,28 @@
               </tr>
               <tr>
                 <td>Street address </td>
-                <td>{{this.address}}</td>
+                <td>{{this.secondFormGroup.get('address').value}}</td>
               </tr>
 
               <tr>
                 <td>First Name</td>
-                <td>{{this.firstName}}</td>
+                <td>{{ this.secondFormGroup.get('firstName').value }}</td>
               </tr>
               <tr>
                 <td>Last Name</td>
-                <td>{{this.lastName}}</td>
+                <td>{{this.secondFormGroup.get('lastName').value}}</td>
               </tr>
               <tr>
                 <td>Date of request</td>
-                <td>{{this.requestDate}}</td>
+                <td>{{this.firstFormGroup.get('requestDate').value}}</td>
               </tr>
               <tr>
                 <td>Time of request</td>
-                <td>{{this.requestTime}}</td>
+                <td>{{this.firstFormGroup.get('requestTime').value}}</td>
               </tr>
               <tr>
                 <td>Details of your problem</td>
-                <td>{{this.details}}</td>
+                <td>{{this.thirdFormGroup.get('details').value}}</td>
               </tr>
 
             </tbody>
@@ -152,6 +158,7 @@
           <br><br>
           <div class="confirm-info">
             <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
             <button mat-raised-button color="primary" (click)="validations()"> Confirm </button>
           </div>
         </mat-step>
@@ -165,15 +172,15 @@
 
 <div *ngIf="isHandset">
   <br><br>
-    You are requesting a service of type &nbsp;&nbsp;&nbsp;
-    <button mat-button color="primary">
-      {{selectedService.serviceType}}
-    </button> &nbsp;&nbsp;&nbsp; in &nbsp;&nbsp;&nbsp;
-    <button mat-button color="primary">
-      {{selectedLocation.city}}
-    </button>
-    <br><br>
-  <div >
+  You are requesting a service of type &nbsp;&nbsp;&nbsp;
+  <button mat-button color="primary">
+    {{selectedService.serviceType}}
+  </button> &nbsp;&nbsp;&nbsp; in &nbsp;&nbsp;&nbsp;
+  <button mat-button color="primary">
+    {{selectedLocation.city}}
+  </button>
+  <br><br>
+  <div>
     <mat-vertical-stepper linear #stepper>
 
       <!-- Date and Time -->
@@ -199,7 +206,7 @@
       </mat-step>
 
       <!--Contact information-->
-      <mat-step [editable]="isEditable" >
+      <mat-step [editable]="isEditable">
         <br><br>
         <ng-template matStepLabel>Contact Details</ng-template>
         <mat-form-field class="wider-input" appearance="fill">
@@ -236,7 +243,7 @@
         <br><br>
         <div class="confirm-info">
           <button mat-raised-button matStepperPrevious>Back</button> &nbsp;
-          <button mat-raised-button matStepperNext color="primary">Next</button>
+          <button mat-raised-button matStepperNext color="primary" (click)="populateRequestObject()">Next</button>
         </div>
       </mat-step>
 
@@ -266,7 +273,7 @@
             </tr>
             <tr>
               <td>Street address </td>
-              <td>{{this.address}}</td>
+              <td>{{ this.serviceRequest.address }}</td>
             </tr>
 
             <tr>

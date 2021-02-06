@@ -9,10 +9,15 @@
 <br>
 
 <mat-form-field>
-    <mat-label>Payment Amount</mat-label>
-    <input matInput placeholder="1500" value="2000" [(ngModel)]="paymentInformation.paymentAmount">
+    <mat-label>Service Charges</mat-label>
+    <input matInput type="number" placeholder="1500" value="2000" [(ngModel)]="paymentInformation.serviceCharges">
 </mat-form-field>
-&nbsp;
+<br>
+<mat-form-field>
+    <mat-label>Other Charges</mat-label>
+    <input matInput type="number" placeholder="1500" value="2000" [(ngModel)]="paymentInformation.otherCharges">
+</mat-form-field>
+<br>
 
 <mat-form-field>
     <mat-label>Payment Confirmation/Receipt No</mat-label>

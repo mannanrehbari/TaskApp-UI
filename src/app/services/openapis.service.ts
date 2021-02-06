@@ -82,10 +82,6 @@ export class OpenapisService {
     );
   }
 
-
-
-
-
   emailVerification(email: string) {
     const emailReq: EmailRequest = new EmailRequest();
     emailReq.email = email;
@@ -93,4 +89,11 @@ export class OpenapisService {
       GlobalConstants.SERVER_V1_ADDRESS + 'password/sendcode', emailReq
     ).toPromise();
   }
+
+  getPaymentInfo(trackingId: string){
+    return this.http.get<any>(
+      GlobalConstants.SERVER_V1_ADDRESS + 'paymentinfo/' + trackingId
+    ).toPromise();
+  }
+
 }

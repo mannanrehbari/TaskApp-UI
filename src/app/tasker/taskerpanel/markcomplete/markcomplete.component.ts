@@ -50,11 +50,15 @@ export class MarkcompleteComponent implements OnInit {
   savePaymentInformation(){
     this.paymentInformation.paymentMethod = this.selectedMethod;
     // do some validation
-    if(this.selectedMethod == null || this.paymentInformation.paymentAmount == null || this.paymentInformation.paymentConfirmationNo == null){
+    if(this.selectedMethod == null || this.paymentInformation.serviceCharges == null || this.paymentInformation.otherCharges == null || this.paymentInformation.paymentConfirmationNo == null){
       this._snackBarSrvc.snackBar('Invalid data');
       return;
     }
-
+    if(typeof this.paymentInformation.serviceCharges !== 'number' 
+    || typeof this.paymentInformation.otherCharges !== 'number') {
+      this._snackBarSrvc.snackBar('Please enter numeric data');
+      return;
+    }
     if(!this.selectedFile){
       this._snackBarSrvc.snackBar('Kindly attach a receipt');
       return;
