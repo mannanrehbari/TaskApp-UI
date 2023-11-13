@@ -3,7 +3,9 @@
 html,
 body {
     height: 100%;
+    width: 100%;
     color: black;
+    overflow-x: hidden;
 }
 body {
     margin: 0;
@@ -26,6 +28,10 @@ button:focus{
 
 .center-div-elements{
     text-align: center;
+}
+
+.dark-section{
+    background-color:#e0e0e0;
 }
 
 

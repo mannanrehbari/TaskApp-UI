@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagementComponent } from './admin/management/management.component';
 import { ManagetaskersComponent } from './admin/management/managetaskers/managetaskers.component';
 import { RequestqueueComponent } from './admin/requestqueue/requestqueue.component';
+import { AboutComponent } from './common/bottom/about/about.component';
+import { PrivacyComponent } from './common/bottom/privacy/privacy.component';
+import { TermsComponent } from './common/bottom/terms/terms.component';
 import { CreateComponent } from './common/create/create.component';
 import { HomeComponent } from './common/home/home.component';
 import { TrackComponent } from './common/track/track.component';
@@ -19,6 +22,9 @@ const routes: Routes = [
   { path: 'create', component: CreateComponent},
   { path: 'track/:trackingId', component: TrackComponent},
   { path: 'track', component: TrackComponent},
+  { path: 'about', component: AboutComponent},
+  { path: 'privacy', component: PrivacyComponent},
+  { path: 'terms', component: TermsComponent},
 
 
   //admin

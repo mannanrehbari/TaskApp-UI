@@ -19,8 +19,17 @@
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4">{{request.requestStatus}}</h1>
-                <p class="lead" *ngIf="request.requestStatus=='COMPLETED'">Your request has been marked as completed.
-                </p>
+                <div  *ngIf="request.requestStatus=='COMPLETED'">
+                  <p class="lead">Your request has been marked as completed.
+                  </p>
+                  <br>
+                  <button mat-raised-button (click)="openPDF()"> 
+                    <mat-icon>receipt_long
+                    </mat-icon>
+                    PDF Receipt 
+                  </button>
+
+                </div>
                 <p class="lead" *ngIf="request.requestStatus=='STARTED'"> We have received your request and will be
                     assigned to a tasker soon.</p>
                 <p class="lead" *ngIf="request.requestStatus=='IN_PROGRESS'"> We have assigned your task. Our tasker will be in contact shortly.</p>

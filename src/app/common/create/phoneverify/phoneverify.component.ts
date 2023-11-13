@@ -100,6 +100,7 @@ export class PhoneverifyComponent implements OnInit {
 
   cancelPhoneVer() {
     this.dlgRef.close({
+      trackingId : ""
     });
   }
 

@@ -92,4 +92,8 @@ export class HomeComponent implements OnInit {
 
   }
 
+  linkNav(url: any){
+    window.open(url, '_blank');
+  }
+
 }

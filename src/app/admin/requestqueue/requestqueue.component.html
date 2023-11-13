@@ -111,7 +111,7 @@
             <ng-container matColumnDef="Actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let request">
-                    <button mat-stroked-button (click)="assignTasker(request)">
+                    <button mat-stroked-button (click)="assignTasker(request)" [disabled]="request.requestStatus == 'COMPLETED'">
                         <span class="material-icons">
                             engineering
                         </span>

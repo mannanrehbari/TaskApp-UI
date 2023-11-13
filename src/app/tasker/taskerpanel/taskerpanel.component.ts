@@ -135,7 +135,6 @@ export class TaskerpanelComponent implements OnInit, AfterViewInit {
 
   markComplete (request: Servicerequest) {
     const dlgRef = this.matDlg.open(MarkcompleteComponent, {
-      width: '60%',
       data: {request},
       disableClose: true
     });

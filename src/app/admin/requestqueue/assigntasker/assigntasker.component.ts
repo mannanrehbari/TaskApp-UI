@@ -22,6 +22,7 @@ export class AssigntaskerComponent implements OnInit {
 
   serviceRequest: Servicerequest
   taskerList: Taskermodel[]
+  displayedColumns: string[] = ['firstName', 'lastName', 'phoneNo', 'Actions'];
 
   //service call finished
   taskersFetched: Boolean = false;
@@ -41,6 +42,7 @@ export class AssigntaskerComponent implements OnInit {
     taskersOfType.then(
       (data) => {
         this.taskerList = data;
+        console.log(this.taskerList);
         this.taskersFetched = true;
       }
     );
